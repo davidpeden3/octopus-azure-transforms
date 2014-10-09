@@ -12,5 +12,8 @@
 	<files>
 		<file src="..\Azure\bin\Release\app.publish\*.*" />
 		<file src="..\OctopusVariableSubstitutionTester\web*.config" />
+		<file src="..\OctopusVariableSubstitutionTester\deploy.ps1" />
+		<file src="..\OctopusVariableSubstitutionTester\predeploy.ps1" />
+		<file src="ServiceDefinition.csdef" />
 	</files>
 </package>
