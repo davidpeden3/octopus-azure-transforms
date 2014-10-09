@@ -8,8 +8,4 @@ $cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\c
 & $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;cspackproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
 
 # clean up
-Remove-Item azurePackage
-Remove-Item cspackproperties.txt
-Remove-Item ServiceDefinition.csdef
-Remove-Item Web.config
-Remove-Item Web.Release.config
+Remove-Item * -exclude *.cspkg,*.cscfg -recurse
