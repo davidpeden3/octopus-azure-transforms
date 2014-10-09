@@ -36,7 +36,7 @@ $cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\c
 Write-Host "executing the following cspack command:"
 Write-Host $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
 & $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
-& generatePackage "OctopusVariableSubstitutionTester", "azurepackage/webrole", "Azure.ccproj.cspkg"
+generatePackage "OctopusVariableSubstitutionTester", "azurepackage/webrole", "Azure.ccproj.cspkg"
 
 function generatePackage($roleName, $roleBasePath, $outputPackageName)
 {
