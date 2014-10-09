@@ -23,4 +23,4 @@ Unzip (Get-Item (join-path -path "azurePackage" -childPath "OctopusVariableSubst
 
 #copy transformed web.config
 Copy-Item web.config .\azurepackage\webrole\approot
-Copy-Item web.config .\azurepackage\webrole\siteroot\0
+Copy-Item web.config .\azurepackage\webrole\sitesroot\0
