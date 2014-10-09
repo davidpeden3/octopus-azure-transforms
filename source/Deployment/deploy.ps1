@@ -1,36 +1,4 @@
-﻿# load the assembly required
-[Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
-
-function Unzip($zipFile, $destination)
-{
-	#Delete destination folder if it exists
-	If (Test-Path $destination){
-		Remove-Item $destination -Recurse
-	}
-
-	#Create the destination folder
-	New-Item -ItemType directory -Force -Path $destination
-
-	#Unzip
-	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
-}
-
-function generatePackage($roleName, $roleBasePath, $outputPackageName)
-{
-	$cspackPath = 'C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe'
-	$serviceDefinitionPath = "ServiceDefinition.csdef"
-
-	$out = "/out:$outputPackageName"
-	$role = "/role:$roleName;$rolePath"
-	$rolePropertiesFile = "/rolePropertiesFile:$roleName;roleproperties.txt"
-	$sites = "/sites:$roleName;Web;$roleBasePath/approot"
-	$sitePhysicalDirectories = "/sitePhysicalDirectories:$roleName;Web;$roleBasePath/sitesroot/0"
-
-	# Build CSPKG file
-	Write-Host "create package"
-	#& $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
-	Write-Host $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
-}
+﻿Import-Module cspack-utilities
 
 Write-Host "unzip the cspkg file"
 Unzip "Azure.ccproj.cspkg" "azurePackage"
@@ -53,4 +21,4 @@ $cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\c
 Write-Host "executing the following cspack command:"
 Write-Host $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
 & $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
-generatePackage "OctopusVariableSubstitutionTester" "azurepackage/webrole" "Azure.ccproj.cspkg"
+generatePackage "OctopusVariableSubstitutionTester" "azurepackage/webrole" "Web"
