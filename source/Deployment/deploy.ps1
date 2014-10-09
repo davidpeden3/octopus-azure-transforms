@@ -15,12 +15,21 @@ function Unzip($zipFile, $destination)
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
-#Unzips the cspkg file
+Write-Host "unzip the cspkg file"
 Unzip "Azure.ccproj.cspkg" "azurePackage"
 
-#Unzips the .cssx file that was contained in the cspkg file
+Write-Host "unzip the cssx file"
 Unzip (Get-Item (join-path -path "azurePackage" -childPath "OctopusVariableSubstitutionTester*.cssx")) "azurePackage\webrole"
 
-#copy transformed web.config
+Write-Host "copy transformed web.config into approot"
 Copy-Item web.config .\azurepackage\webrole\approot
+
+Write-Host "copy transformed web.config into sitesroot\0"
 Copy-Item web.config .\azurepackage\webrole\sitesroot\0
+
+Write-Host "Repacking Azure Web Package"
+$role = "OctopusVariableSubstitutionTester"
+$rolePath = "azurepackage/webrole/approot"
+$webPath = "azurepackage/webrole/sitesroot/0"
+$cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe"
+& $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;cspackproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
