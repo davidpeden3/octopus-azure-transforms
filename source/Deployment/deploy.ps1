@@ -27,12 +27,30 @@ Copy-Item web.config .\azurepackage\webrole\approot
 Write-Host "copy transformed web.config into sitesroot\0"
 Copy-Item web.config .\azurepackage\webrole\sitesroot\0
 
-Write-Host "repack azure package contents"
+Write-Host "create package"
 $role = "OctopusVariableSubstitutionTester"
 $rolePath = "azurepackage/webrole/approot"
 $webPath = "azurepackage/webrole/sitesroot/0"
 $cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe"
 
 Write-Host "executing the following cspack command:"
-Write-Host $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;cspackproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
-& $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;cspackproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
+Write-Host $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
+& $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
+& generatePackage "OctopusVariableSubstitutionTester", "azurepackage/webrole", "Azure.ccproj.cspkg"
+
+function generatePackage($roleName, $roleBasePath, $outputPackageName)
+{
+	$cspackPath = 'C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe'
+	$serviceDefinitionPath = "ServiceDefinition.csdef"
+
+	$out = "/out:$outputPackageName"
+	$role = "/role:$roleName;$rolePath"
+	$rolePropertiesFile = "/rolePropertiesFile:$roleName;roleproperties.txt"
+	$sites = "/sites:$roleName;Web;$roleBasePath/approot"
+	$sitePhysicalDirectories = "/sitePhysicalDirectories:$roleName;Web;$roleBasePath/sitesroot/0"
+
+	# Build CSPKG file
+	Write-Host "create package"
+	#& $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
+	Write-Host $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
+}
