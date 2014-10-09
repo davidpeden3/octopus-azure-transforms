@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>HoursTrackerCloud.com</id>
+		<version>1.0.0</version>
+		<authors>David Peden</authors>
+		<owners>BassHead Software</owners>
+		<projectUrl>https://www.hourstrackercloud.com</projectUrl>
+		<iconUrl>https://www.hourstrackercloud.com/content/images/logo.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Deployment package for Octopus.</description>
+		<copyright>Copyright 2013</copyright>
+	</metadata>
+	<files>
+		<file src="..\Azure\bin\Release\app.publish\*.*" />
+	</files>
+</package>
