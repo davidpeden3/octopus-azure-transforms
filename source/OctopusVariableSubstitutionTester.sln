@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctopusVariableSubstitutionTester", "OctopusVariableSubstitutionTester\OctopusVariableSubstitutionTester.csproj", "{8B6CAB0A-4CD1-454C-A3B7-8DB183C358B9}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Azure", "Azure\Azure.ccproj", "{0C802C53-2052-48FE-8CB1-107C443DEDBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8B6CAB0A-4CD1-454C-A3B7-8DB183C358B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B6CAB0A-4CD1-454C-A3B7-8DB183C358B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B6CAB0A-4CD1-454C-A3B7-8DB183C358B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C802C53-2052-48FE-8CB1-107C443DEDBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C802C53-2052-48FE-8CB1-107C443DEDBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C802C53-2052-48FE-8CB1-107C443DEDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C802C53-2052-48FE-8CB1-107C443DEDBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
