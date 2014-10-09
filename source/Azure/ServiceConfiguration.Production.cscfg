@@ -4,6 +4,9 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="AzureSetting" value="#{AzureSetting}" />
+      <Setting name="TargetFramework" value="" />
+      <Setting name="Environment" value="#{Octopus.Environment.Name}" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

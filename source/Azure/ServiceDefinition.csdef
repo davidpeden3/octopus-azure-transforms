@@ -14,5 +14,10 @@
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>
+    <ConfigurationSettings>
+      <Setting name="AzureSetting" />
+      <Setting name="TargetFramework" />
+      <Setting name="Environment" />
+    </ConfigurationSettings>
   </WebRole>
 </ServiceDefinition>
