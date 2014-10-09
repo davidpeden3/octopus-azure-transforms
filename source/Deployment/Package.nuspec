@@ -11,5 +11,6 @@
 	</metadata>
 	<files>
 		<file src="..\Azure\bin\Release\app.publish\*.*" />
+		<file src="..\OctopusVariableSubstitutionTester\web*.config" />
 	</files>
 </package>
