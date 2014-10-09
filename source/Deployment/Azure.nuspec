@@ -12,6 +12,7 @@
 	<files>
 		<file src="deploy.ps1" />
 		<file src="postdeploy.ps1" />
+		<file src="cspack-utilities.psm1" />
 		<file src="roleproperties.txt" />
 		<file src="..\Azure\ServiceDefinition.csdef" />
 		<file src="..\Azure\bin\Release\app.publish\*.*" />
