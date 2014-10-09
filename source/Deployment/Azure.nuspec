@@ -4,9 +4,9 @@
 		<id>OctopusVariableSubstitutionTester</id>
 		<version>0.0.0</version>
 		<authors>David Peden</authors>
-		<owners>BassHead Software</owners>
+		<owners>David Peden</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Octopus variable substitution playground.</description>
+		<description>Octopus variable substitution playground. Supports injecting CSPKG files with transformed web.configs.</description>
 		<copyright>Copyright 2014</copyright>
 	</metadata>
 	<files>

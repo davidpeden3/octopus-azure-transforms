@@ -27,7 +27,7 @@ Copy-Item web.config .\azurepackage\webrole\approot
 Write-Host "copy transformed web.config into sitesroot\0"
 Copy-Item web.config .\azurepackage\webrole\sitesroot\0
 
-Write-Host "Repacking Azure Web Package"
+Write-Host "repack azure package contents"
 $role = "OctopusVariableSubstitutionTester"
 $rolePath = "azurepackage/webrole/approot"
 $webPath = "azurepackage/webrole/sitesroot/0"
