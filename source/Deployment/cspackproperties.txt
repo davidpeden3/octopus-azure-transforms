@@ -1,1 +1,11 @@
 ﻿TargetFrameWorkVersion=v4.5.1
+RoleType=Web
+RoleName=OctopusVariableSubstitutionTester
+ProjectName=OctopusVariableSubstitutionTester
+Configuration=Release
+Platform=AnyCPU
+RoleTargetFramework=v4.5.1
+OutputDir=C:\TeamCity\BuildAgent.1\work\4826f0ff238825d5\source\Azure\obj\Release\OctopusVariableSubstitutionTester\
+EntryPoint=OctopusVariableSubstitutionTester.dll
+SourceDir=C:\TeamCity\BuildAgent.1\work\4826f0ff238825d5\source\OctopusVariableSubstitutionTester\
+SitePhysicalPath=C:\TeamCity\BuildAgent.1\work\4826f0ff238825d5\source\Azure\obj\Release\OctopusVariableSubstitutionTester\
