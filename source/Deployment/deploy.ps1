@@ -36,7 +36,7 @@ function generatePackage($roleName, $appPath, $sitePath, $siteName, $outputPacka
 	Write-Host "create package"
 	$cspackCommand = "$cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories"
 	Write-Host $cspackCommand
-	& $cspackCommand
+	Invoke-Expression $cspackCommand
 }
 
 Write-Host "unzip the cspkg file"
