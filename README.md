@@ -41,8 +41,12 @@ To accomplish the goal, the following key steps occur throughout the pipeline:
 
 1. Use MSBuild to generate the initial CSPKG
 2. Have Octopus transform the configuration files (web.config and ServiceConfiguration.Production.cscfg) at deployment time
-3. In deploy.ps1, unzip the CSPKG, replace the stock web.config with the transformed one
-4. Repack the CSPKG by executing the following command:
+3. Unzip the CSPKG
+4. Replace the stock web.config with the transformed one
+5. Repack the CSPKG
+6. Clean up the temporary files
+
+Deploy.ps1 produces the following CSPack command:
 
 ```
 C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe
@@ -53,9 +57,6 @@ C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe
 	/sites:OctopusVariableSubstitutionTester;Web;azurePackage\webrole\sitesroot\0
 	/sitePhysicalDirectories:OctopusVariableSubstitutionTester;Web;azurePackage\webrole\sitesroot\0
 ```
-5. In postdeploy.ps1, clean up the temporary files
- 
-Technically, the clean up could be done in deploy.ps1 if you want to slightly simplify the process and NuGet package.
 
 The [roleproperties.txt](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/Deployment/roleproperties.txt) file is used by ```CSPack.exe``` to produce RoleModel.xml inside the CSSX folder of the CSPKG. You can adjust these properties to whatever you want. I matched them to what was produced by MSBuild which, to my understanding, is inferred by the .csproj of the web project.
 
