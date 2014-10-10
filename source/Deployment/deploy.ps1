@@ -1,4 +1,5 @@
-﻿# $workingDirectory - the temp folder where the packing occurs
+﻿# $azureSdkVersion - the version of the Azure SDK
+# $workingDirectory - the temp folder where the packing occurs
 # $azureProjectName - the name of the azure project containing the role
 # $webProjectName - the name of the web project used by the role
 # $outputPackageName - the name of the final cspkg
@@ -12,7 +13,7 @@ function Unzip($zipFile, $destination)
 {
 	#Delete destination folder if it exists
 	If (Test-Path $destination){
-	Remove-Item $destination -Recurse
+		Remove-Item $destination -Recurse
 	}
 
 	#Create the destination folder
@@ -22,9 +23,9 @@ function Unzip($zipFile, $destination)
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
-function generatePackage($roleName, $appPath, $sitePath, $siteName, $outputPackageName)
+function generatePackage($azureSdkVersion, $roleName, $appPath, $sitePath, $siteName, $outputPackageName)
 {
-	$cspackPath = 'C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe'
+	$cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v$azureSdkVersion\bin\cspack.exe"
 	$serviceDefinitionPath = "ServiceDefinition.csdef"
 
 	$out = "/out:$outputPackageName"
