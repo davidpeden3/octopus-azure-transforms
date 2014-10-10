@@ -61,3 +61,7 @@ C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe
 The [roleproperties.txt](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/Deployment/roleproperties.txt) file is used by ```CSPack.exe``` to produce RoleModel.xml inside the CSSX folder of the CSPKG. You can adjust these properties to whatever you want. I matched them to what was produced by MSBuild which, to my understanding, is inferred by the .csproj of the web project.
 
 The result is a perfect replacement. When diffing the folder contents of the before and after CSPKG files, the only differences are the random GUIDs generated as a part of the packing process and the desired transformations to web.config.
+
+![Araxis Folder Comparison](https://raw.githubusercontent.com/davidpeden3/octopus-azure-transforms/master/documentation/araxis-folder-comparison.png)
+
+![web.config Comparison](https://raw.githubusercontent.com/davidpeden3/octopus-azure-transforms/master/documentation/web.config-comparison.png)
