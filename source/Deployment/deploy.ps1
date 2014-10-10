@@ -11,15 +11,15 @@
 
 function Unzip($zipFile, $destination)
 {
-	#Delete destination folder if it exists
 	If (Test-Path $destination){
+		Write-Host "remove $destination"
 		Remove-Item $destination -Recurse
 	}
 
-	#Create the destination folder
+	Write-Host "create $destination"
 	New-Item -ItemType directory -Force -Path $destination
 
-	#Unzip
+	Write-Host "unzip contents of $zipFile into $destination"
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
