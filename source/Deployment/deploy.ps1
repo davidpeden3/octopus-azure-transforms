@@ -1,4 +1,8 @@
-﻿# load the assembly required
+﻿# $workingDirectory - the temp folder where the packing occurs
+# $azureProjectName - the name of the azure project containing the role
+# $webProjectName - the name of the web project used by the role
+
+# load the assembly required
 [Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
 
 function Unzip($zipFile, $destination)
@@ -30,29 +34,20 @@ function generatePackage($roleName, $roleBasePath, $siteName)
 
 	# Build CSPKG file
 	Write-Host "create package"
-	#& $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
 	Write-Host $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
+	& $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
 }
 
 Write-Host "unzip the cspkg file"
-Unzip "Azure.ccproj.cspkg" "azurePackage"
+Unzip "$azureProjectName.ccproj.cspkg" $workingDirectory
 
 Write-Host "unzip the cssx file"
-Unzip (Get-Item (join-path -path "azurePackage" -childPath "OctopusVariableSubstitutionTester*.cssx")) "azurePackage\webrole"
+Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) "$workingDirectory\webrole"
 
 Write-Host "copy transformed web.config into approot"
-Copy-Item web.config .\azurepackage\webrole\approot
+Copy-Item web.config .\$workingDirectory\webrole\approot
 
 Write-Host "copy transformed web.config into sitesroot\0"
-Copy-Item web.config .\azurepackage\webrole\sitesroot\0
+Copy-Item web.config .\$workingDirectory\webrole\sitesroot\0
 
-Write-Host "create package"
-$role = "OctopusVariableSubstitutionTester"
-$rolePath = "azurepackage/webrole/approot"
-$webPath = "azurepackage/webrole/sitesroot/0"
-$cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe"
-
-Write-Host "executing the following cspack command:"
-Write-Host $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
-& $cspackPath "ServiceDefinition.csdef" "/out:Azure.ccproj.cspkg" "/role:$role;$rolePath;OctopusVariableSubstitutionTester.dll" "/rolePropertiesFile:$role;roleproperties.txt" "/sites:$role;Web;$webPath" "/sitePhysicalDirectories:$role;Web;$webPath"
-generatePackage "OctopusVariableSubstitutionTester" "azurepackage/webrole" "Web"
+generatePackage "OctopusVariableSubstitutionTester" "$workingDirectory/webrole" "Web"
