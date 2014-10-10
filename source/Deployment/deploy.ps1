@@ -12,7 +12,7 @@ function Unzip($zipFile, $destination)
 {
 	#Delete destination folder if it exists
 	If (Test-Path $destination){
-		Remove-Item $destination -Recurse
+	Remove-Item $destination -Recurse
 	}
 
 	#Create the destination folder
