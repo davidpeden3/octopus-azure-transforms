@@ -55,4 +55,4 @@ Write-Host "copy transformed web.config into sitesroot\0"
 $sitePath = "$cssxFolder\sitesroot\0"
 Copy-Item web.config .\$sitePath
 
-generatePackage $azureRoleName $appPath $sitePath $azureSiteName $outputPackageName
+generatePackage $azureSdkVersion $azureRoleName $appPath $sitePath $azureSiteName $outputPackageName
