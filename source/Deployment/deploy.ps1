@@ -6,7 +6,6 @@
 # $azureRoleName - the name of the role
 # $azureSiteName - the name of the site for the role
 
-# load the assembly required
 [Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
 
 function Unzip($zipFile, $destination)
