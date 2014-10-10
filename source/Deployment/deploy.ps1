@@ -1,10 +1,10 @@
-﻿# $azureSdkVersion - the version of the Azure SDK
-# $workingDirectory - the temp folder where the packing occurs
-# $azureProjectName - the name of the azure project containing the role
-# $webProjectName - the name of the web project used by the role
-# $outputPackageName - the name of the final cspkg
+﻿# $azureProjectName - the name of the azure project containing the role
 # $azureRoleName - the name of the role
+# $azureSdkVersion - the version of the Azure SDK
 # $azureSiteName - the name of the site for the role
+# $outputPackageName - the name of the final cspkg
+# $webProjectName - the name of the web project used by the role
+# $workingDirectory - the temp folder where the packing occurs
 
 [Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
 
