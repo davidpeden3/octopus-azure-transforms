@@ -1,6 +1,7 @@
 ﻿# $workingDirectory - the temp folder where the packing occurs
 # $azureProjectName - the name of the azure project containing the role
 # $webProjectName - the name of the web project used by the role
+# $outputPackageName - the name of the final cspkg
 
 # load the assembly required
 [Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
@@ -19,14 +20,14 @@ function Unzip($zipFile, $destination)
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
-function generatePackage($roleName, $roleBasePath, $siteName)
+function generatePackage($roleName, $roleBasePath, $siteName, $outputPackageName)
 {
 	$cspackPath = 'C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe'
 	$serviceDefinitionPath = "ServiceDefinition.csdef"
 	$appPath = "$roleBasePath/approot"
 	$sitePath = "$roleBasePath/sitesroot/0"
 
-	$out = "/out:$roleName.cspkg"
+	$out = "/out:$outputPackageName"
 	$role = "/role:$roleName;$appPath"
 	$rolePropertiesFile = "/rolePropertiesFile:$roleName;roleproperties.txt"
 	$sites = "/sites:$roleName;$siteName;$sitePath"
@@ -50,4 +51,4 @@ Copy-Item web.config .\$workingDirectory\webrole\approot
 Write-Host "copy transformed web.config into sitesroot\0"
 Copy-Item web.config .\$workingDirectory\webrole\sitesroot\0
 
-generatePackage "OctopusVariableSubstitutionTester" "$workingDirectory/webrole" "Web"
+generatePackage "OctopusVariableSubstitutionTester" "$workingDirectory/webrole" "Web" $outputPackageName
