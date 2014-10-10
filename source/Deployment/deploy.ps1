@@ -2,6 +2,8 @@
 # $azureProjectName - the name of the azure project containing the role
 # $webProjectName - the name of the web project used by the role
 # $outputPackageName - the name of the final cspkg
+# $azureRoleName - the name of the role
+# $azureSiteName - the name of the site for the role
 
 # load the assembly required
 [Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
@@ -20,12 +22,10 @@ function Unzip($zipFile, $destination)
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
-function generatePackage($roleName, $roleBasePath, $siteName, $outputPackageName)
+function generatePackage($roleName, $appPath, $sitePath, $siteName, $outputPackageName)
 {
 	$cspackPath = 'C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.3\bin\cspack.exe'
 	$serviceDefinitionPath = "ServiceDefinition.csdef"
-	$appPath = "$roleBasePath/approot"
-	$sitePath = "$roleBasePath/sitesroot/0"
 
 	$out = "/out:$outputPackageName"
 	$role = "/role:$roleName;$appPath"
@@ -33,22 +33,26 @@ function generatePackage($roleName, $roleBasePath, $siteName, $outputPackageName
 	$sites = "/sites:$roleName;$siteName;$sitePath"
 	$sitePhysicalDirectories = "/sitePhysicalDirectories:$roleName;Web;$sitePath"
 
-	# Build CSPKG file
 	Write-Host "create package"
-	Write-Host $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
-	& $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
+	$cspackCommand = $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
+	Write-Host $cspackCommand
+	& $cspackCommand
 }
 
 Write-Host "unzip the cspkg file"
 Unzip "$azureProjectName.ccproj.cspkg" $workingDirectory
 
 Write-Host "unzip the cssx file"
-Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) "$workingDirectory\webrole"
+$cssxFolder = "$workingDirectory\webrole"
+Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) $cssxFolder
+
 
 Write-Host "copy transformed web.config into approot"
-Copy-Item web.config .\$workingDirectory\webrole\approot
+$appPath = "$cssxFolder\approot"
+Copy-Item web.config .\$appPath
 
 Write-Host "copy transformed web.config into sitesroot\0"
-Copy-Item web.config .\$workingDirectory\webrole\sitesroot\0
+$sitePath = "$cssxFolder\sitesroot\0"
+Copy-Item web.config .\$sitePath
 
-generatePackage "OctopusVariableSubstitutionTester" "$workingDirectory\webrole" "Web" $outputPackageName
+generatePackage $azureRoleName $appPath $sitePath $azureSiteName $outputPackageName
