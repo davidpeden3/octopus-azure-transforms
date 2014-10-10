@@ -32,7 +32,7 @@ function Generate-Package($azureSdkVersion, $roleName, $appPath, $sitePath, $sit
 	$role = "/role:$roleName;$appPath"
 	$rolePropertiesFile = "/rolePropertiesFile:$roleName;roleproperties.txt"
 	$sites = "/sites:$roleName;$siteName;$sitePath"
-	$sitePhysicalDirectories = "/sitePhysicalDirectories:$roleName;XXX;$sitePath"
+	$sitePhysicalDirectories = "/sitePhysicalDirectories:$roleName;$siteName;$sitePath"
 
 	Write-Host "create package"
 	Write-Host $cspackPath $serviceDefinitionPath $out $role $rolePropertiesFile $sites $sitePhysicalDirectories
