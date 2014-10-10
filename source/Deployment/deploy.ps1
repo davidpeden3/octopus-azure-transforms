@@ -23,7 +23,7 @@ function Unzip($zipFile, $destination)
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
-function generatePackage($azureSdkVersion, $roleName, $appPath, $sitePath, $siteName, $outputPackageName)
+function Generate-Package($azureSdkVersion, $roleName, $appPath, $sitePath, $siteName, $outputPackageName)
 {
 	$cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v$azureSdkVersion\bin\cspack.exe"
 	$serviceDefinitionPath = "ServiceDefinition.csdef"
@@ -54,4 +54,4 @@ Write-Host "copy transformed web.config into sitesroot\0"
 $sitePath = "$cssxFolder\sitesroot\0"
 Copy-Item web.config .\$sitePath
 
-generatePackage $azureSdkVersion $azureRoleName $appPath $sitePath $azureSiteName $outputPackageName
+Generate-Package $azureSdkVersion $azureRoleName $appPath $sitePath $azureSiteName $outputPackageName
