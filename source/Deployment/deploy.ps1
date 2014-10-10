@@ -23,13 +23,13 @@ function Unzip($zipFile, $destination)
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $destination)
 }
 
-function Generate-Package($azureSdkVersion, $roleName, $appPath, $sitePath, $siteName, $outputPackageName)
+function Generate-Package($azureSdkVersion, $roleName, $rolePath, $siteName, $sitePath, $outputPackageName)
 {
 	$cspackPath = "C:\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v$azureSdkVersion\bin\cspack.exe"
 	$serviceDefinitionPath = "ServiceDefinition.csdef"
 
 	$out = "/out:$outputPackageName"
-	$role = "/role:$roleName;$appPath"
+	$role = "/role:$roleName;$rolePath"
 	$rolePropertiesFile = "/rolePropertiesFile:$roleName;roleproperties.txt"
 	$sites = "/sites:$roleName;$siteName;$sitePath"
 	$sitePhysicalDirectories = "/sitePhysicalDirectories:$roleName;$siteName;$sitePath"
@@ -47,11 +47,11 @@ $cssxFolder = "$workingDirectory\webrole"
 Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) $cssxFolder
 
 Write-Host "copy transformed web.config into approot"
-$appPath = "$cssxFolder\approot"
-Copy-Item web.config .\$appPath
+$rolePath = "$cssxFolder\approot"
+Copy-Item web.config .\$rolePath
 
 Write-Host "copy transformed web.config into sitesroot\0"
 $sitePath = "$cssxFolder\sitesroot\0"
 Copy-Item web.config .\$sitePath
 
-Generate-Package $azureSdkVersion $azureRoleName $appPath $sitePath $azureSiteName $outputPackageName
+Generate-Package $azureSdkVersion $azureRoleName $rolePath $azureSiteName $sitePath $outputPackageName
