@@ -9,7 +9,9 @@ This project demonstrates how to perform deploy-time transforms to an Azure CSPK
 
 The web project only contains a [web.config](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/Web.config) and its related [web.release.config](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/Web.Release.config). It is not a functional web site and its sole purpose is to create as lightweight of a project as possible to exercise the build, package, and deploy pipeline. This project does contain the MVC 5 NuGet packages but they are not used for anything. The web project does perform a build-time transform using the web.release.config file when built locally ([see the 'AfterBuild' target](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/OctopusVariableSubstitutionTester.csproj#L143-L146) at the bottom of the .csproj file) but this is not necessary for deployment (as Octopus handles this for us when configured to do so) and is merely a local workstation convenience.
 
-The build and deployment pipeline is performed by [TeamCity](http://www.jetbrains.com/teamcity/) using a combination of [MSBuild](http://msdn.microsoft.com/en-us/library/0k6kkbsd.aspx), [NuGet](https://www.nuget.org/), [Klondike](https://github.com/themotleyfool/Klondike), and [Octopus](http://octopusdeploy.com/). The build configuration looks like this:
+The build and deployment pipeline is performed by [TeamCity](http://www.jetbrains.com/teamcity/) using a combination of [MSBuild](http://msdn.microsoft.com/en-us/library/0k6kkbsd.aspx), [NuGet](https://www.nuget.org/), [Klondike](https://github.com/themotleyfool/Klondike), and [Octopus](http://octopusdeploy.com/).
+
+The build configuration in TeamCity looks like this:
 
 ![TeamCity Build Configuration](https://raw.githubusercontent.com/davidpeden3/octopus-azure-transforms/master/documentation/teamcity-build-configuration.png)
 
@@ -21,7 +23,7 @@ And includes the following variables:
 
 ![Octopus Variables](https://raw.githubusercontent.com/davidpeden3/octopus-azure-transforms/master/documentation/octopus-variables.png)
 
-Note that deploy.ps1 and postdeploy.ps1 are used instead of predeploy.ps1 and deploy.ps1 because the Octopus transforms (variable substitution, web.release.config tranform, and app setting/connection string replacement) all occur *after* predeploy.ps1.
+Note that deploy.ps1 and postdeploy.ps1 are used instead of predeploy.ps1 and deploy.ps1 because the Octopus transforms ([variable substitution](http://docs.octopusdeploy.com/display/OD/Variable+Substitution+Syntax) and [web.release.config transform and app setting/connection string replacement](http://docs.octopusdeploy.com/display/OD/Configuration+files)) all occur *after* predeploy.ps1.
 
 A successful build produces the following build log in TeamCity:
 
