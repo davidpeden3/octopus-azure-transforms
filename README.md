@@ -3,11 +3,11 @@ octopus-azure-transforms
 
 This project demonstrates how to perform deploy-time transforms to an Azure CSPKG via Octopus. It contains three projects:
 
-1. The web project (OctopusVariableSubstitutionTester) that contains the web.config upon which transforms are applied.
-2. The web role project (Azure) that contains a web role that hosts the web project.
-3. The deployment project (Deployment) that contains packaging and deployment related files.
+1. The web project ([OctopusVariableSubstitutionTester](https://github.com/davidpeden3/octopus-azure-transforms/tree/master/source/OctopusVariableSubstitutionTester)) that contains the web.config upon which transforms are applied.
+2. The web role project ([Azure](https://github.com/davidpeden3/octopus-azure-transforms/tree/master/source/Azure)) that contains a web role that hosts the web project.
+3. The deployment project ([Deployment](https://github.com/davidpeden3/octopus-azure-transforms/tree/master/source/Deployment)) that contains packaging and deployment related files.
 
-The web project only contains a web.config and its related web.release.config. It is not a functional web site and its sole purpose is to create as lightweight of a project as possible to exercise the build, package, and deploy pipeline. This project does contain the MVC 5 NuGet packages but they are not used for anything. The web project does perform a build-time transform using the web.release.config file when built locally ([see the 'AfterBuild' target](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/OctopusVariableSubstitutionTester.csproj#L143-L146) at the bottom of the .csproj file) but this is not necessary for deployment (as Octopus handles this for us when configured to do so) and is merely a local workstation convenience.
+The web project only contains a [web.config](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/Web.config) and its related [web.release.config](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/Web.Release.config). It is not a functional web site and its sole purpose is to create as lightweight of a project as possible to exercise the build, package, and deploy pipeline. This project does contain the MVC 5 NuGet packages but they are not used for anything. The web project does perform a build-time transform using the web.release.config file when built locally ([see the 'AfterBuild' target](https://github.com/davidpeden3/octopus-azure-transforms/blob/master/source/OctopusVariableSubstitutionTester/OctopusVariableSubstitutionTester.csproj#L143-L146) at the bottom of the .csproj file) but this is not necessary for deployment (as Octopus handles this for us when configured to do so) and is merely a local workstation convenience.
 
 The build and deployment pipeline is performed by TeamCity using a combination of MSBuild, Nuget, Klondike, and Octopus. The build configuration looks like this:
 
