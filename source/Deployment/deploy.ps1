@@ -43,12 +43,12 @@ Write-Host "unzip the cspkg file"
 Unzip "$azureProjectName.ccproj.cspkg" $workingDirectory
 
 Write-Host "unzip the cssx file"
-Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) "$workingDirectory"
+Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) "$workingDirectory\webrole"
 
 Write-Host "copy transformed web.config into approot"
-Copy-Item web.config .\$workingDirectory\approot
+Copy-Item web.config .\$workingDirectory\webrole\approot
 
 Write-Host "copy transformed web.config into sitesroot\0"
-Copy-Item web.config .\$workingDirectory\sitesroot\0
+Copy-Item web.config .\$workingDirectory\webrole\sitesroot\0
 
-generatePackage "OctopusVariableSubstitutionTester" "$workingDirectory" "Web" $outputPackageName
+generatePackage "OctopusVariableSubstitutionTester" "$workingDirectory\webrole" "Web" $outputPackageName
