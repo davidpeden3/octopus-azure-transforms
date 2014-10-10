@@ -46,7 +46,6 @@ Write-Host "unzip the cssx file"
 $cssxFolder = "$workingDirectory\webrole"
 Unzip (Get-Item (join-path -path $workingDirectory -childPath "$webProjectName*.cssx")) $cssxFolder
 
-
 Write-Host "copy transformed web.config into approot"
 $appPath = "$cssxFolder\approot"
 Copy-Item web.config .\$appPath
